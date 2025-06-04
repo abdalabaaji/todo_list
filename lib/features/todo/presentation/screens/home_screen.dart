@@ -46,7 +46,8 @@ class HomeScreen extends StatelessWidget {
                           event
                               .map(
                                 (todo) => {
-                                  'id': todo['id'].toString(),
+                                  'id': todo['id'],
+                                  'user_id': todo['user_id'],
                                   'title': todo['title'],
                                   'is_done': todo['is_done'] ?? false,
                                 },
@@ -67,12 +68,7 @@ class HomeScreen extends StatelessWidget {
                     itemCount: streamTodos.length,
                     itemBuilder: (context, index) {
                       final todoMap = streamTodos[index];
-                      final todo = Todo(
-                        id: todoMap['id'],
-                        userId: todoMap['user_id'],
-                        title: todoMap['title'],
-                        isDone: todoMap['is_done'] ?? false,
-                      );
+                      final todo = Todo.fromJson(todoMap);
                       return ListTile(
                         title: Text(todo.title),
                         trailing: Checkbox(

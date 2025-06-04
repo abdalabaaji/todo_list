@@ -1,6 +1,5 @@
-
 class Todo {
-  final String id;
+  final int id;
   final String userId;
   final String title;
   final bool isDone;
@@ -14,14 +13,23 @@ class Todo {
 
   factory Todo.fromJson(Map<String, dynamic> json) {
     return Todo(
-      id: json['id'].toString(),
-      userId: json['user_id'],
-      title: json['title'],
-      isDone: json['is_done'] ?? false,
+      id: json['id'] as int,
+      userId: json['user_id'] as String? ?? '',
+      title: json['title'] as String? ?? '',
+      isDone: json['is_done'] as bool? ?? false,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {'id': id, 'user_id': userId, 'title': title, 'is_done': isDone};
+  }
+
+  Todo copyWith({int? id, String? userId, String? title, bool? isDone}) {
+    return Todo(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      title: title ?? this.title,
+      isDone: isDone ?? this.isDone,
+    );
   }
 }
